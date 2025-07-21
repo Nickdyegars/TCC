@@ -13,14 +13,14 @@ export const Text = styled.Text`
     color: #000000;
 `;
 
+
 export const ContainerTop = styled.View`
     flex-direction: row;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 16px;
-    gap: 32px;
 `;
 
 export const ContainerBody = styled.View`
@@ -34,10 +34,11 @@ export const ContainerBody = styled.View`
 `;
 
 export const ContainerBottom = styled.View`
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 16px;
-    align-items: center;
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
+    z-index: 10;
+    elevation: 10;
 `;
 
 export const Icon = styled.TouchableOpacity`
@@ -47,8 +48,4 @@ export const Icon = styled.TouchableOpacity`
     borderColor: #D4D4D4;
     align-items: center;
     justify-content: center;
-`;
-
-export const ErrorText = styled.Text`
-    color: red;
 `;
