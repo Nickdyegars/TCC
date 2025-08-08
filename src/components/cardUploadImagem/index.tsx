@@ -14,26 +14,28 @@ export function UploadImage({ onSelectImage }: UploadImageProps) {
     const [image, setImage] = useState<string | null>(null);
 
     const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ['images'],
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 1,
+            quality: 0.5, // compressão leve
+            base64: true, 
         });
 
-        // console.log(result);
-
         if (!result.canceled) {
-            const selectedImage = result.assets[0].uri;
-            setImage(selectedImage);
-            onSelectImage(selectedImage);
+            const selected = result.assets[0];
+
+            if (selected.base64) {
+                const base64Data = `data:image/jpeg;base64,${selected.base64}`;
+                setImage(base64Data); // mostra a imagem no componente
+                onSelectImage(selected.base64); // envia a base64 pura (sem prefixo)
+            }
         }
     };
 
     const handleRemoveImage = () => {
         setImage(null);
-        onSelectImage(''); // 🔧 Envia imagem vazia para Formik (campo vazio)
+        onSelectImage(''); // Envia imagem vazia para Formik (campo vazio)
     };
 
     return (

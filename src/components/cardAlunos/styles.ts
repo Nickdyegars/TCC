@@ -27,6 +27,7 @@ export const Text = styled.Text`
 export const Image = styled.Image`
     width: 50px;
     height: 50px;
+    border-radius: 25px;
 `;
 
 export const Icon = styled.TouchableOpacity`

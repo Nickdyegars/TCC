@@ -9,15 +9,12 @@ import { Formik } from 'formik';
 import { maskPhone } from '../../utils/masks';
 import { ref, set } from "firebase/database";
 import { database } from "../../services/firebaseConfig";
+import { Aluno } from '../../types/types';
 import { v4 as uuidv4 } from 'uuid'
 import 'react-native-get-random-values';
+import Alunos from "../alunos";
 
 export default function CadastrarAluno({ navigation }: any) {
-
-    const [nome, setNome] = useState('');
-    const [contato, setContato] = useState('');
-    const [email, setEmail] = useState('');
-    const [imagem, setImagem] = useState('');
 
     const validationSchema = Yup.object().shape({
         nome: Yup.string().required('Nome é obrigatório').min(3, 'Nome deve ter no mínimo 3 caracteres'),
@@ -26,7 +23,7 @@ export default function CadastrarAluno({ navigation }: any) {
     });
 
     const handleCadastrar = async (values: any) => {
-        const result ={
+        const result: Aluno = {
             id: uuidv4(),
             nome: values.nome,
             contato: values.contato,
@@ -36,6 +33,7 @@ export default function CadastrarAluno({ navigation }: any) {
         await set(ref(database, `/alunos/${result.id}`), result);
         alert('Aluno cadastrado com sucesso');
         navigation.goBack();
+        console.log(result);
     };
 
     return (

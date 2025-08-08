@@ -41,7 +41,7 @@ export const RemoveButton = styled.TouchableOpacity`
 
 export const UploadButton = styled.TouchableOpacity`
     width: 100%;
-    height: 150px;
+    height: 100%;
     justify-content: center;
     align-items: center;
     border-radius: 8px;

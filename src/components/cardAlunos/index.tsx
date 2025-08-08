@@ -1,16 +1,30 @@
 import { Container, Text, Image, Icon } from "./styles"
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import { Aluno } from "../../types/types";
 
 interface CardAlunosProps {
-    image: any;
-    name: string;
+    aluno: Aluno;
+    navigation?: any;
 }
 
-export function CardAlunos({ image, name }: CardAlunosProps) {
+export function CardAlunos({ aluno, navigation }: CardAlunosProps) {
+
+    const imageSource = typeof aluno.imagem === 'string'
+        ? { uri: `data:image/jpeg;base64,${aluno.imagem}` }
+        : aluno.imagem;
+
+    const navigationPerfil = () => {
+        navigation.navigate('PerfilAluno', { aluno });
+    }
+
     return (
-        <Container>
-            <Image source={image}/>
-            <Text>{name}</Text>
+        <Container onPress={navigationPerfil}>
+            {imageSource !== null ? (
+                <Image source={imageSource} />
+            ) : (
+                <Image source={require("../../../assets/perfil.png")} />
+            )}
+            <Text>{aluno.nome}</Text>
             <Icon>
                 <SimpleLineIcons name="options-vertical" size={24} color="black" />
             </Icon>
